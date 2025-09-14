@@ -6,9 +6,16 @@
     xmlns:local="clr-namespace:MauiAIDemo"
     Title="MauiAIDemo">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <TabBar>
+        <ShellContent
+            Title="AI Chat"
+            ContentTemplate="{DataTemplate local:MainPage}"
+            Route="MainPage" />
+        
+        <ShellContent
+            Title="OCR"
+            ContentTemplate="{DataTemplate local:OcrPage}"
+            Route="OcrPage" />
+    </TabBar>
 
 </Shell>
