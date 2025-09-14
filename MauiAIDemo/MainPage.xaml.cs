@@ -8,8 +8,6 @@ namespace MauiAIDemo
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
-
         public MainPage()
         {
             InitializeComponent();
@@ -17,21 +15,15 @@ namespace MauiAIDemo
 
         private async void OnCounterClicked(object? sender, EventArgs e)
         {
-            count++;
-
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
+            // Clear previous response and disable button
+            ResponseEditor.Text = "Processing...";
+            CounterBtn.IsEnabled = false;
+            CounterBtn.Text = "Processing...";
 
 #if WINDOWS
             try
             {
-
-
-                // Then check the ready state
+                // Check the ready state
                 var readyState = LanguageModel.GetReadyState();
                 if (readyState == AIFeatureReadyState.Ready)
                 {
@@ -39,18 +31,21 @@ namespace MauiAIDemo
                 }
                 else if (readyState == AIFeatureReadyState.NotReady)
                 {
-                    Console.WriteLine("Language Model is not ready. Please wait and try again.");
+                    ResponseEditor.Text = "Language Model is not ready. Please wait and try again.";
                     return;
                 }
-                else if (readyState == AIFeatureReadyState.NotReady)
+                /*else if (readyState == AIFeatureReadyState.Unavailable)
                 {
-                    Console.WriteLine("Language Model is unavailable on this system.");
+                    ResponseEditor.Text = "Language Model is unavailable on this system.";
                     return;
-                }
+                }*/
 
                 using LanguageModel languageModel = await LanguageModel.CreateAsync();
 
-                string prompt = "Provide the molecular formula for glucose.";
+                // Get prompt from Entry field
+                string prompt = string.IsNullOrWhiteSpace(PromptEntry.Text) 
+                    ? "Provide the molecular formula for glucose." 
+                    : PromptEntry.Text;
 
                 LanguageModelOptions options = new LanguageModelOptions();
                 ContentFilterOptions filterOptions = new ContentFilterOptions();
@@ -59,12 +54,23 @@ namespace MauiAIDemo
 
                 var result = await languageModel.GenerateResponseAsync(prompt, options);
 
-                Console.WriteLine(result.Text);
+                // Display response in Editor
+                ResponseEditor.Text = result.Text;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error: {ex.Message}");
+                ResponseEditor.Text = $"Error: {ex.Message}";
             }
+            finally
+            {
+                // Re-enable button
+                CounterBtn.IsEnabled = true;
+                CounterBtn.Text = "Ask AI";
+            }
+#else
+            ResponseEditor.Text = "AI features are only available on Windows platform.";
+            CounterBtn.IsEnabled = true;
+            CounterBtn.Text = "Ask AI";
 #endif
         }
     }

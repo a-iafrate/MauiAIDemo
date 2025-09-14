@@ -7,29 +7,50 @@
         <VerticalStackLayout
             Padding="30,0"
             Spacing="25">
-            <Image
-                Source="dotnet_bot.png"
-                HeightRequest="185"
-                Aspect="AspectFit"
-                SemanticProperties.Description="dot net bot in a hovercraft number nine" />
 
             <Label
-                Text="Hello, World!"
+                Text="AI Chat Demo"
                 Style="{StaticResource Headline}"
+                HorizontalOptions="Center"
                 SemanticProperties.HeadingLevel="Level1" />
 
-            <Label
-                Text="Welcome to &#10;.NET Multi-platform App UI"
-                Style="{StaticResource SubHeadline}"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I" />
+            <Entry
+                x:Name="PromptEntry"
+                Placeholder="Enter your prompt here..."
+                Text="Provide the molecular formula for glucose."
+                FontSize="16" />
 
             <Button
                 x:Name="CounterBtn"
-                Text="Click me" 
-                SemanticProperties.Hint="Counts the number of times you click"
+                Text="Ask AI" 
+                SemanticProperties.Hint="Send prompt to AI"
                 Clicked="OnCounterClicked"
                 HorizontalOptions="Fill" />
+
+            <Label
+                Text="Response:"
+                FontAttributes="Bold"
+                Margin="0,10,0,0" />
+
+            <Border
+                Stroke="{AppThemeBinding Light=Gray, Dark=LightGray}"
+                StrokeThickness="1"
+                BackgroundColor="{AppThemeBinding Light=#F5F5F5, Dark=#2D2D30}"
+                Padding="10"
+                StrokeShape="RoundRectangle 5">
+                <Editor
+                    x:Name="ResponseEditor"
+                    Placeholder="AI response will appear here..."
+                    IsReadOnly="True"
+                    MinimumHeightRequest="200"
+                    FontSize="14"
+                    
+                    TextColor="{AppThemeBinding Light=Black, Dark=White}"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand"
+                    AutoSize="TextChanges" />
+            </Border>
+
         </VerticalStackLayout>
     </ScrollView>
 
