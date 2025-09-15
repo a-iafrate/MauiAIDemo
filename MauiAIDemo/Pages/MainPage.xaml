@@ -4,55 +4,60 @@
              x:Class="MauiAIDemo.MainPage"
              Title="AI Chat">
 
-    <ScrollView>
-        <VerticalStackLayout
-            Padding="30,0"
-            Spacing="25">
+    <Grid Padding="30,20" RowSpacing="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-            <Label
-                Text="AI Chat Demo"
-                Style="{StaticResource Headline}"
-                HorizontalOptions="Center"
-                SemanticProperties.HeadingLevel="Level1" />
+        <!-- Title -->
+        <Label Grid.Row="0"
+               Text="AI Chat Demo"
+               Style="{StaticResource Headline}"
+               HorizontalOptions="Center"
+               SemanticProperties.HeadingLevel="Level1" />
 
-            <Entry
-                x:Name="PromptEntry"
-                Placeholder="Enter your prompt here..."
-                Text="Provide the molecular formula for glucose."
-                FontSize="16" />
+        <!-- Prompt Input -->
+        <Entry Grid.Row="1"
+               x:Name="PromptEntry"
+               Placeholder="Enter your prompt here..."
+               Text="Provide the molecular formula for glucose."
+               FontSize="16"
+               HorizontalOptions="Fill" />
 
-            <Button
+        <!-- Ask AI Button -->
+        <Button Grid.Row="2"
                 x:Name="CounterBtn"
                 Text="Ask AI" 
                 SemanticProperties.Hint="Send prompt to AI"
                 Clicked="OnCounterClicked"
                 HorizontalOptions="Fill" />
 
-            <Label
-                Text="Response:"
-                FontAttributes="Bold"
-                Margin="0,10,0,0" />
+        <!-- Response Label -->
+        <Label Grid.Row="3"
+               Text="Response:"
+               FontAttributes="Bold" />
 
-            <Border
+        <!-- Response Area -->
+        <Border Grid.Row="4"
                 Stroke="{AppThemeBinding Light=Gray, Dark=LightGray}"
                 StrokeThickness="1"
                 BackgroundColor="{AppThemeBinding Light=#F5F5F5, Dark=#2D2D30}"
                 Padding="10"
                 StrokeShape="RoundRectangle 5">
-                <Editor
-                    x:Name="ResponseEditor"
+            <Editor x:Name="ResponseEditor"
                     Placeholder="AI response will appear here..."
                     IsReadOnly="True"
-                    MinimumHeightRequest="200"
                     FontSize="14"
                     BackgroundColor="Transparent"
                     TextColor="{AppThemeBinding Light=Black, Dark=White}"
                     HorizontalOptions="FillAndExpand"
-                    VerticalOptions="FillAndExpand"
-                    AutoSize="TextChanges" />
-            </Border>
+                    VerticalOptions="FillAndExpand" />
+        </Border>
 
-        </VerticalStackLayout>
-    </ScrollView>
+    </Grid>
 
 </ContentPage>
