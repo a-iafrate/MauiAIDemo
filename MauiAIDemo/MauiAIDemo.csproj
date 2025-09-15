@@ -82,16 +82,22 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-	  <Compile Update="OcrPage.xaml.cs">
+	  <Compile Update="Pages\ImagingPage.xaml.cs">
+	    <DependentUpon>ImagingPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\OcrPage.xaml.cs">
 	    <DependentUpon>OcrPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 	
 	<ItemGroup>
-	  <MauiXaml Update="OcrPage.xaml">
+	  <MauiXaml Update="Pages\ImagingPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="OcrPage.xaml">
+	  <MauiXaml Update="Pages\OcrPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\OcrPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

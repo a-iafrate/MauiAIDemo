@@ -16,6 +16,10 @@
             Title="OCR"
             ContentTemplate="{DataTemplate local:OcrPage}"
             Route="OcrPage" />
+        <ShellContent
+    Title="ImagingPage"
+    ContentTemplate="{DataTemplate local:ImagingPage}"
+    Route="ImagingPage" />
     </TabBar>
 
 </Shell>
