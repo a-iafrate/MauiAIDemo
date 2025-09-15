@@ -2,6 +2,7 @@
 using Microsoft.Windows.AI;
 using Microsoft.Windows.AI.ContentSafety;
 using Microsoft.Windows.AI.Text;
+using Windows.ApplicationModel;
 #endif
 
 namespace MauiAIDemo
@@ -23,6 +24,16 @@ namespace MauiAIDemo
 #if WINDOWS
             try
             {
+            var access = Windows.ApplicationModel.LimitedAccessFeatures.TryUnlockFeature(
+    "com.microsoft.windows.ai.languagemodel",
+    "rJsxYZYAw4FkM43LmMIr5A==",
+    "9f7cbwqwexwb0 has registered their use of com.microsoft.windows.ai.languagemodel with Microsoft and agrees to the terms of use.");
+if ((access.Status == LimitedAccessFeatureStatus.Available) ||
+    (access.Status == LimitedAccessFeatureStatus.AvailableWithoutToken))
+{
+    /* consume the feature */
+}
+
                 // Check the ready state
                 var readyState = LanguageModel.GetReadyState();
                 if (readyState == AIFeatureReadyState.Ready)
