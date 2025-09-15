@@ -2,6 +2,7 @@
 using Microsoft.Graphics.Imaging;
 using Microsoft.Maui.ApplicationModel;
 using Microsoft.Windows.AI;
+using Microsoft.Windows.AI.ContentSafety;
 using Microsoft.Windows.AI.Imaging;
 using Microsoft.Windows.Management.Deployment;
 
@@ -86,30 +87,31 @@ namespace MauiAIDemo
 
 #if WINDOWS
             // OCR implementation will be added here
-            if (TextRecognizer.GetReadyState() == AIFeatureReadyState.NotReady)
+            if (ImageDescriptionGenerator.GetReadyState() != AIFeatureReadyState.Ready)
             {
-                var loadResult = await TextRecognizer.EnsureReadyAsync();
-                if (loadResult.Status != AIFeatureReadyResultState.Success)
+                var result = await ImageDescriptionGenerator.EnsureReadyAsync();
+                if (result.Status != AIFeatureReadyResultState.Success)
                 {
-                    throw new Exception(loadResult.ExtendedError.Message);
+                    throw result.ExtendedError;
                 }
             }
 
-            var textRecognition= await TextRecognizer.CreateAsync();
+            ImageDescriptionGenerator imageDescriptionGenerator = await ImageDescriptionGenerator.CreateAsync();
 
-            ImageBuffer imageBuffer = await LoadImageBufferFromFileAsync(selectedImagePath);
-            RecognizedText recognizedText = textRecognition.RecognizeTextFromImage(imageBuffer);
-            StringBuilder stringBuilder = new StringBuilder();
+            // Convert already available softwareBitmap to ImageBuffer.
+            ImageBuffer inputImage = await LoadImageBufferFromFileAsync(selectedImagePath);
 
-            foreach (var line in recognizedText.Lines)
-            {
-                stringBuilder.AppendLine(line.Text);
-            }
+            // Create content moderation thresholds object.
+            ContentFilterOptions filterOptions = new ContentFilterOptions();
+            //filterOptions.PromptMaxAllowedSeverityLevel. = SeverityLevel.Medium;
+            //filterOptions.ResponseMinSeverityLevelToBlock.ViolentContentSeverity = SeverityLevel.Medium;
 
-            ResponseEditor.Text = stringBuilder.ToString();
+            // Get text description.
+            var languageModelResponse = await imageDescriptionGenerator.DescribeAsync(inputImage, ImageDescriptionKind.BriefDescription, filterOptions);
+            string response = languageModelResponse.Description;
+            ResponseEditor.Text = response;
 
 
-           
 #else
             ResponseEditor.Text = "OCR features are only available on Windows platform.";
 #endif
