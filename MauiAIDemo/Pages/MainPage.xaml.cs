@@ -1,6 +1,7 @@
 ﻿#if WINDOWS
 using Microsoft.Windows.AI;
 using Microsoft.Windows.AI.ContentSafety;
+using Microsoft.Windows.AI.Imaging;
 using Microsoft.Windows.AI.Text;
 using Windows.ApplicationModel;
 #endif
@@ -22,12 +23,27 @@ namespace MauiAIDemo
             CounterBtn.Text = "Processing...";
 
 #if WINDOWS
+
+
+           
+            //var readyState2 = ImageScaler.GetReadyState();
+            //if (readyState2 is AIFeatureReadyState.Ready or AIFeatureReadyState.NotReady)
+            //{
+            //    if (readyState2 == AIFeatureReadyState.NotReady)
+            //    {
+            //        var op = await ImageScaler.EnsureReadyAsync();
+            //    }
+
+            //    ImageScaler imageScaler = await ImageScaler.CreateAsync();
+            //    //SoftwareBitmap finalImage = imageScaler.ScaleSoftwareBitmap(softwareBitmap, targetWidth, targetHeight);
+            //}
+
             try
             {
             var access = Windows.ApplicationModel.LimitedAccessFeatures.TryUnlockFeature(
     "com.microsoft.windows.ai.languagemodel",
-    "rJsxYZYAw4FkM43LmMIr5A==",
-    "9f7cbwqwexwb0 has registered their use of com.microsoft.windows.ai.languagemodel with Microsoft and agrees to the terms of use.");
+    "xxxxxxxxxxx",
+    "xxxxxxxxxx has registered their use of com.microsoft.windows.ai.languagemodel with Microsoft and agrees to the terms of use.");
 if ((access.Status == LimitedAccessFeatureStatus.Available) ||
     (access.Status == LimitedAccessFeatureStatus.AvailableWithoutToken))
 {
@@ -36,7 +52,7 @@ if ((access.Status == LimitedAccessFeatureStatus.Available) ||
 
                 // Check the ready state
                 var readyState = LanguageModel.GetReadyState();
-                if (readyState == AIFeatureReadyState.Ready)
+                if (readyState == AIFeatureReadyState.NotReady)
                 {
                     var op = await LanguageModel.EnsureReadyAsync();
                 }
