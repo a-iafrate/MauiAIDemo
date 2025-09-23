@@ -24,7 +24,7 @@ namespace MauiAIDemo
         public OcrPage()
         {
             InitializeComponent();
-            // Usa il GraphicsView dichiarato in XAML e imposta il Drawable
+            // Use the GraphicsView declared in XAML and set the Drawable
             OcrGraphicsView.Drawable = rectanglesDrawable;
             OcrGraphicsView.IsVisible = false;
         }
@@ -42,15 +42,15 @@ namespace MauiAIDemo
                 {
                     selectedImagePath = result.FullPath;
 
-                    // Mostra l'immagine selezionata
+                    // Show the selected image
                     SelectedImage.Source = ImageSource.FromFile(result.FullPath);
                     SelectedImage.IsVisible = true;
                     PlaceholderLabel.IsVisible = false;
 
-                    // Abilita il bottone
+                    // Enable the button
                     CounterBtn.IsEnabled = true;
 
-                    // Nascondi overlay rettangoli
+                    // Hide rectangles overlay
                     OcrGraphicsView.IsVisible = false;
                     OcrGraphicsView.Invalidate();
                 }
@@ -62,7 +62,7 @@ namespace MauiAIDemo
         }
 
 #if WINDOWS
-        // Carica sia ImageBuffer che SoftwareBitmap per avere dimensioni originali
+        // Load both ImageBuffer and SoftwareBitmap to preserve original dimensions
         public async Task<(ImageBuffer?, SoftwareBitmap?)> LoadImageBufferAndBitmapFromFileAsync(string filePath)
         {
             StorageFile file = await StorageFile.GetFileFromPathAsync(filePath);
@@ -92,7 +92,7 @@ namespace MauiAIDemo
             CounterBtn.Text = "Processing...";
 
 #if WINDOWS
-            // Assicurati che la funzionalità sia pronta
+            // Ensure the feature is ready
             if (TextRecognizer.GetReadyState() == AIFeatureReadyState.NotReady)
             {
                 var loadResult = await TextRecognizer.EnsureReadyAsync();
@@ -120,23 +120,23 @@ namespace MauiAIDemo
             StringBuilder stringBuilder = new StringBuilder();
             ocrRectangles.Clear();
 
-            // Dimensioni originali immagine (pixel)
+            // Original image size (pixels)
             double imageWidth = bitmap.PixelWidth;
             double imageHeight = bitmap.PixelHeight;
 
-            // Dimensioni area overlay (coincide con area dove disegniamo)
+            // Overlay area size (matches the drawing area)
             double viewWidth = OcrGraphicsView.Width > 0 ? OcrGraphicsView.Width : SelectedImage.Width;
             double viewHeight = OcrGraphicsView.Height > 0 ? OcrGraphicsView.Height : SelectedImage.Height;
 
             if (viewWidth <= 0 || viewHeight <= 0)
             {
-                // Forza layout prima di calcolare (in casi rari)
+                // Force layout before computing (rare cases)
                 await Task.Delay(16);
                 viewWidth = OcrGraphicsView.Width > 0 ? OcrGraphicsView.Width : SelectedImage.Width;
                 viewHeight = OcrGraphicsView.Height > 0 ? OcrGraphicsView.Height : SelectedImage.Height;
             }
 
-            // Calcolo AspectFit: scala e offset per letterboxing
+            // AspectFit calculation: scale and offsets for letterboxing
             double scale = Math.Min(viewWidth / imageWidth, viewHeight / imageHeight);
             double drawWidth = imageWidth * scale;
             double drawHeight = imageHeight * scale;
@@ -153,7 +153,7 @@ namespace MauiAIDemo
                     foreach (var word in words)
                     {
                         var box = word.BoundingBox;
-                        // Usa le proprietà TopLeft, TopRight, BottomLeft, BottomRight
+                        // Use TopLeft, TopRight, BottomLeft, BottomRight properties
                         var points = new[] { box.TopLeft, box.TopRight, box.BottomLeft, box.BottomRight };
                         foreach (var p in points)
                         {
@@ -165,7 +165,7 @@ namespace MauiAIDemo
                     }
                     if (minX < maxX && minY < maxY)
                     {
-                        // Mappa alle coordinate dell'overlay considerando scala e offset
+                        // Map to overlay coordinates taking scale and offset into account
                         var scaledRect = new RectF(
                             (float)(offsetX + minX * scale),
                             (float)(offsetY + minY * scale),

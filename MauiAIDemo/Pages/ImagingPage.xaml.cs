@@ -86,7 +86,7 @@ namespace MauiAIDemo
             CounterBtn.Text = "Processing...";
 
 #if WINDOWS
-            // OCR implementation will be added here
+            // Initialize and check ready state of ImageDescriptionGenerator
             if (ImageDescriptionGenerator.GetReadyState() != AIFeatureReadyState.Ready)
             {
                 var result = await ImageDescriptionGenerator.EnsureReadyAsync();
