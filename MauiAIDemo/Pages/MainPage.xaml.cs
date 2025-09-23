@@ -26,29 +26,18 @@ namespace MauiAIDemo
 
 
            
-            //var readyState2 = ImageScaler.GetReadyState();
-            //if (readyState2 is AIFeatureReadyState.Ready or AIFeatureReadyState.NotReady)
-            //{
-            //    if (readyState2 == AIFeatureReadyState.NotReady)
-            //    {
-            //        var op = await ImageScaler.EnsureReadyAsync();
-            //    }
-
-            //    ImageScaler imageScaler = await ImageScaler.CreateAsync();
-            //    //SoftwareBitmap finalImage = imageScaler.ScaleSoftwareBitmap(softwareBitmap, targetWidth, targetHeight);
-            //}
-
+            
             try
             {
             var access = Windows.ApplicationModel.LimitedAccessFeatures.TryUnlockFeature(
-    "com.microsoft.windows.ai.languagemodel",
-    "xxxxxxxxxxx",
-    "xxxxxxxxxx has registered their use of com.microsoft.windows.ai.languagemodel with Microsoft and agrees to the terms of use.");
-if ((access.Status == LimitedAccessFeatureStatus.Available) ||
-    (access.Status == LimitedAccessFeatureStatus.AvailableWithoutToken))
-{
-    /* consume the feature */
-}
+                    "com.microsoft.windows.ai.languagemodel",
+                    "xxxxxxxxxxx",
+                    "xxxxxxxxxx has registered their use of com.microsoft.windows.ai.languagemodel with Microsoft and agrees to the terms of use.");
+                if ((access.Status == LimitedAccessFeatureStatus.Available) ||
+                    (access.Status == LimitedAccessFeatureStatus.AvailableWithoutToken))
+                {
+                    /* consume the feature */
+                }
 
                 // Check the ready state
                 var readyState = LanguageModel.GetReadyState();
@@ -61,11 +50,11 @@ if ((access.Status == LimitedAccessFeatureStatus.Available) ||
                     ResponseEditor.Text = "Language Model is not ready. Please wait and try again.";
                     return;
                 }
-                /*else if (readyState == AIFeatureReadyState.Unavailable)
+                else if (readyState == AIFeatureReadyState.NotSupportedOnCurrentSystem)
                 {
                     ResponseEditor.Text = "Language Model is unavailable on this system.";
                     return;
-                }*/
+                }
 
                 using LanguageModel languageModel = await LanguageModel.CreateAsync();
 

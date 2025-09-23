@@ -103,8 +103,8 @@ namespace MauiAIDemo
 
             // Create content moderation thresholds object.
             ContentFilterOptions filterOptions = new ContentFilterOptions();
-            //filterOptions.PromptMaxAllowedSeverityLevel. = SeverityLevel.Medium;
-            //filterOptions.ResponseMinSeverityLevelToBlock.ViolentContentSeverity = SeverityLevel.Medium;
+            filterOptions.PromptMaxAllowedSeverityLevel.Sexual = SeverityLevel.Medium;
+            filterOptions.ResponseMaxAllowedSeverityLevel.Violent = SeverityLevel.Low;
 
             // Get text description.
             var languageModelResponse = await imageDescriptionGenerator.DescribeAsync(inputImage, ImageDescriptionKind.BriefDescription, filterOptions);
