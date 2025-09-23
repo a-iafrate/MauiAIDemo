@@ -38,10 +38,17 @@
             
             <Grid>
                 <Image x:Name="SelectedImage"
-                       Aspect="AspectFit"
+                       
                        IsVisible="False"
-                       HorizontalOptions="Center"
+                       HorizontalOptions="Fill"
                        VerticalOptions="Center" />
+                
+                <GraphicsView x:Name="OcrGraphicsView"
+                              
+                              IsVisible="False"
+                              BackgroundColor="Transparent"
+                              HorizontalOptions="Fill"
+                              VerticalOptions="Fill" />
                 
                 <Label x:Name="PlaceholderLabel"
                        Text="📷 Tap to select an image"
