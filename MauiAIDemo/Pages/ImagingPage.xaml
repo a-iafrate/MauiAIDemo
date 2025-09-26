@@ -23,7 +23,7 @@
 
         <!-- Instructions -->
         <Label Grid.Row="1"
-               Text="Select an image to extract text:"
+               Text="Select an image:"
                FontAttributes="Bold"
                HorizontalOptions="Start" />
 
@@ -60,7 +60,7 @@
         <!-- Extract Button -->
         <Button Grid.Row="3"
                 x:Name="CounterBtn"
-                Text="Extract Text from Image" 
+                Text="Describe Image" 
                 SemanticProperties.Hint="Extract text from the selected image using OCR"
                 Clicked="OnCounterClicked"
                 HorizontalOptions="Fill"
@@ -68,7 +68,7 @@
 
         <!-- Extracted Text Label -->
         <Label Grid.Row="4"
-               Text="Extracted Text:"
+               Text="Result:"
                FontAttributes="Bold" />
 
         <!-- Text Output Area -->

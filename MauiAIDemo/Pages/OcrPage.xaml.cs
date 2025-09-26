@@ -143,6 +143,12 @@ namespace MauiAIDemo
             double offsetX = (viewWidth - drawWidth) / 2.0;
             double offsetY = (viewHeight - drawHeight) / 2.0;
 
+            if(recognizedText.Lines == null || recognizedText.Lines.Count() == 0)
+            {
+                ResponseEditor.Text = "No text recognized in the image.";
+                CounterBtn.IsEnabled = true;
+                return;
+            }
             foreach (var line in recognizedText.Lines)
             {
                 stringBuilder.AppendLine(line.Text);
