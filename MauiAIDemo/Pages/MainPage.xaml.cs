@@ -68,10 +68,10 @@ namespace MauiAIDemo
                 filterOptions.PromptMaxAllowedSeverityLevel.Violent = SeverityLevel.Minimum;
                 options.ContentFilterOptions = filterOptions;
 
-                //var result = await languageModel.GenerateResponseAsync(prompt, options);
+                var result = await languageModel.GenerateResponseAsync(prompt, options);
 
                 // Display response in Editor
-                ResponseEditor.Text = "";//result.Text;
+                ResponseEditor.Text = result.Text;
             }
             catch (Exception ex)
             {
