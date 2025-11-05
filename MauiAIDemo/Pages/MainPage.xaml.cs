@@ -46,8 +46,7 @@ namespace MauiAIDemo
                     var op = await LanguageModel.EnsureReadyAsync();
                 }
                 else if (readyState == AIFeatureReadyState.NotReady)
-                {
-                    ResponseEditor.Text = "Language Model is not ready. Please wait and try again.";
+                { ResponseEditor.Text = "Language Model is not ready. Please wait and try again.";
                     return;
                 }
                 else if (readyState == AIFeatureReadyState.NotSupportedOnCurrentSystem)
