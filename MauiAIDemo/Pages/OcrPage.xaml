@@ -6,11 +6,11 @@
 
     <Grid Padding="30,20" RowSpacing="20">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="0" />
+            <RowDefinition Height="0" />
             <RowDefinition Height="3*" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="0" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -87,7 +87,7 @@
                 StrokeShape="RoundRectangle 5">
             <Editor x:Name="ResponseEditor"
                     Placeholder="Extracted text will appear here..."
-                    IsReadOnly="True"
+                    
                     FontSize="14"
                     BackgroundColor="Transparent"
                     TextColor="{AppThemeBinding Light=Black, Dark=White}"

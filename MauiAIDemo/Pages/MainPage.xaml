@@ -24,7 +24,7 @@
         <Entry Grid.Row="1"
                x:Name="PromptEntry"
                Placeholder="Enter your prompt here..."
-               Text="Provide the molecular formula for glucose."
+               Text="Gli alieni sono tra noi?"
                FontSize="16"
                HorizontalOptions="Fill" />
 
